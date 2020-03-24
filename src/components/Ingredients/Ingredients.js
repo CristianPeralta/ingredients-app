@@ -6,9 +6,13 @@ import Search from './Search';
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
+
+  const addIngredientsHandler = ingredient => {
+    setUserIngredients(prevIngredients => [...prevIngredients, ingredient]);
+  };
   return (
     <div className="App">
-      <IngredientForm />
+      <IngredientForm onAddingredient={addIngredientsHandler} />
 
       <section>
         <Search />
