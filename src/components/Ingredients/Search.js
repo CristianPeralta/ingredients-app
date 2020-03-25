@@ -5,7 +5,7 @@ import './Search.css';
 
 const Search = React.memo(props => {
   const [enteredFilter, setEnteredFilter] = useState('');
-
+  const { onLoadIngredients } = props;
   useEffect(() => {
     fetch('https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json')
     .then(response => response.json())
@@ -18,9 +18,9 @@ const Search = React.memo(props => {
           amount: responseData[key].amount,
         });
       }
-      props.onLoadingIngredients(loadedIngredients);
+      onLoadIngredients(loadedIngredients);
     });
-  }, [enteredFilter, props]);
+  }, [enteredFilter, onLoadIngredients]);
 
   return (
     <section className="search">
