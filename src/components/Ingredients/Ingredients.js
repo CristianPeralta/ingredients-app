@@ -35,7 +35,6 @@ const Ingredients = () => {
     })
     .catch(error => {
       setError('Something went wrong!');
-      setIsLoading(false);
     });
   };
 
@@ -48,12 +47,17 @@ const Ingredients = () => {
       setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
     }).catch(error => {
       setError('Something went wrong!');
-      setIsLoading(false);
     });
   }
+
+  const clearError = () => {
+    setError(null);
+    setIsLoading(false);
+  };
+
   return (
     <div className="App">
-      {error && <ErrorModal onClose={() => {}} >{error}</ErrorModal>}
+      {error && <ErrorModal onClose={clearError} >{error}</ErrorModal>}
       <IngredientForm onAddIngredient={addIngredientsHandler} isLoading={isLoading} />
 
       <section>
