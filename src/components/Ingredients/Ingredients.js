@@ -34,7 +34,7 @@ const Ingredients = () => {
     fetch(`https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`, {
       method: 'DELETE',
     }).then(response => {
-      // ...
+      setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
     });
   }
   return (
