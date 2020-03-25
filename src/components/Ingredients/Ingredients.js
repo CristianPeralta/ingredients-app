@@ -19,7 +19,7 @@ const Ingredients = () => {
             amount: responseData[key].amount,
           });
         }
-        console.log('loadedIngredients', loadedIngredients);
+        setUserIngredients(loadedIngredients);
       });
   }, []);
 
