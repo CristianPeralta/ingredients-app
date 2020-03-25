@@ -18,9 +18,9 @@ const Search = React.memo(props => {
           amount: responseData[key].amount,
         });
       }
-      // update ingredient list
+      props.onLoadingIngredients(loadedIngredients);
     });
-  }, [enteredFilter]);
+  }, [enteredFilter, props]);
 
   return (
     <section className="search">
