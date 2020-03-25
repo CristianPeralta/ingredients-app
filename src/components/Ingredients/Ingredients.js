@@ -10,7 +10,17 @@ const Ingredients = () => {
   useEffect(() => {
     fetch('https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json')
       .then(response => response.json())
-      .then(responseData => console.log('responseData', responseData));
+      .then(responseData => {
+        const loadedIngredients = [];
+        for(const key in responseData) {
+          loadedIngredients.push({
+            id: key,
+            title: responseData[key].title,
+            amount: responseData[key].amount,
+          });
+        }
+        console.log('loadedIngredients', loadedIngredients);
+      });
   }, []);
 
   const addIngredientsHandler = ingredient => {
