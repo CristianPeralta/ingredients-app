@@ -31,6 +31,10 @@ const Ingredients = () => {
         { id: responseData.name, ...ingredient },
       ]);
     })
+    .catch(error => {
+      console.log(error);
+      setIsLoading(false);
+    });
   };
 
   const removeIngredientHandler = ingredientId => {
@@ -40,6 +44,9 @@ const Ingredients = () => {
     }).then(response => {
       setIsLoading(false);
       setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
+    }).catch(error => {
+      console.log(error);
+      setIsLoading(false);
     });
   }
   return (
