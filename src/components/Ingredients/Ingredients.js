@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+import ErrorModal from '../UI/ErrorModal';
 import IngredientList from './IngredientList';
 import IngredientForm from './IngredientForm';
 import Search from './Search';
@@ -52,6 +53,7 @@ const Ingredients = () => {
   }
   return (
     <div className="App">
+      {error && <ErrorModal onClose={() => {}} >{error}</ErrorModal>}
       <IngredientForm onAddIngredient={addIngredientsHandler} isLoading={isLoading} />
 
       <section>
