@@ -15,7 +15,10 @@ const Ingredients = () => {
     })
     .then(response => response.json())
     .then(responseData => {
-      console.log('responseData', responseData);
+      setUserIngredients(prevIngredients => [
+        ...prevIngredients,
+        { id: responseData.name, ...ingredient },
+      ]);
     })
   };
   return (
