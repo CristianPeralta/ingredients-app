@@ -12,7 +12,11 @@ const Ingredients = () => {
       method: 'POST',
       body: JSON.stringify(ingredient),
       headers: { 'Content-Type': 'application/json' },
-    });
+    })
+    .then(response => response.json())
+    .then(responseData => {
+      console.log('responseData', responseData);
+    })
   };
   return (
     <div className="App">
