@@ -7,6 +7,7 @@ import Search from './Search';
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   useEffect(() => {
     console.log('RENDERING INGREDIENTS', userIngredients);
@@ -32,7 +33,7 @@ const Ingredients = () => {
       ]);
     })
     .catch(error => {
-      console.log(error);
+      setError('Something went wrong!');
       setIsLoading(false);
     });
   };
@@ -45,7 +46,7 @@ const Ingredients = () => {
       setIsLoading(false);
       setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
     }).catch(error => {
-      console.log(error);
+      setError('Something went wrong!');
       setIsLoading(false);
     });
   }
