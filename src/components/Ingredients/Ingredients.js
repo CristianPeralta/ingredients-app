@@ -29,7 +29,8 @@ const Ingredients = () => {
   }, [userIngredients]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
-    setUserIngredients(filteredIngredients);
+    // setUserIngredients(filteredIngredients);
+    dispatch({ type: 'SET', ingredients: filteredIngredients });
   }, []);
 
   const addIngredientsHandler = ingredient => {
@@ -42,10 +43,11 @@ const Ingredients = () => {
     .then(response => response.json())
     .then(responseData => {
       setIsLoading(false);
-      setUserIngredients(prevIngredients => [
+      /* setUserIngredients(prevIngredients => [
         ...prevIngredients,
         { id: responseData.name, ...ingredient },
-      ]);
+      ]); */
+      dispatch({ type: 'ADD', ingredient: { id: responseData.name, ...ingredient }});
     })
     .catch(error => {
       setError('Something went wrong!');
@@ -58,7 +60,8 @@ const Ingredients = () => {
       method: 'DELETE',
     }).then(response => {
       setIsLoading(false);
-      setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
+      // setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
+      dispatch({ type: 'DELETE', id: ingredientId});
     }).catch(error => {
       setError('Something went wrong!');
     });
