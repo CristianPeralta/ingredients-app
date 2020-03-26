@@ -18,6 +18,16 @@ const ingredientReducer = (currentIngredients, action) => {
   }
 };
 
+const httpReducer = (httpState, action) => {
+  switch (action.type) {
+    case 'SEND':
+    case 'RESPONSE':
+    case 'ERROR':
+    default:
+      break;
+  }
+};
+
 const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
   // const [userIngredients, setUserIngredients] = useState([]);
