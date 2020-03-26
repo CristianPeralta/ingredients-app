@@ -37,7 +37,7 @@ const Ingredients = () => {
 
   const addIngredientsHandler = useCallback(ingredient => {
     // setIsLoading(true);
-    dispatchHttp({ type: 'SEND' });
+    /* dispatchHttp({ type: 'SEND' });
     fetch('https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json', {
       method: 'POST',
       body: JSON.stringify(ingredient),
@@ -47,38 +47,22 @@ const Ingredients = () => {
     .then(responseData => {
       // setIsLoading(false);
       dispatchHttp({ type: 'RESPONSE' });
-      /* setUserIngredients(prevIngredients => [
-        ...prevIngredients,
-        { id: responseData.name, ...ingredient },
-      ]); */
       dispatch({ type: 'ADD', ingredient: { id: responseData.name, ...ingredient }});
     })
     .catch(error => {
       // setError('Something went wrong!');
       dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
-    });
+    }); */
   }, []);
 
   const removeIngredientHandler = useCallback(ingredientId => {
-    // setIsLoading(true);
-    dispatchHttp({ type: 'SEND' });
-    fetch(`https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`, {
-      method: 'DELETE',
-    }).then(response => {
-      // setIsLoading(false);
-      dispatchHttp({ type: 'RESPONSE' });
-      // setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
-      dispatch({ type: 'DELETE', id: ingredientId});
-    }).catch(error => {
-      // setError('Something went wrong!');
-      dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
-    });
-  }, []);
+    sendRequest(`https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`, 'DELETE');
+  }, [sendRequest]);
 
   const clearError = useCallback(() => {
     // setError(null);
     // setIsLoading(false);
-    dispatchHttp({ type: 'CLEAR' });
+    // dispatchHttp({ type: 'CLEAR' });
   }, []);
 
   const ingredientList = useMemo(() => {
