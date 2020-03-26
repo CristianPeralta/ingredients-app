@@ -25,7 +25,7 @@ const httpReducer = (curHttpState, action) => {
     case 'RESPONSE':
       return { ...curHttpState, loading: false };
     case 'ERROR':
-      return { loading: false, error: action.errorData };
+      return { loading: false, error: action.errorMessage };
     default:
       throw new Error('Should not be reached!');
   }
@@ -35,8 +35,8 @@ const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
   const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null });
   // const [userIngredients, setUserIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  /* const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(); */
 
   useEffect(() => {
     console.log('RENDERING INGREDIENTS', userIngredients);
@@ -48,7 +48,8 @@ const Ingredients = () => {
   }, []);
 
   const addIngredientsHandler = ingredient => {
-    setIsLoading(true);
+    // setIsLoading(true);
+    dispatchHttp({ type: 'SEND' });
     fetch('https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json', {
       method: 'POST',
       body: JSON.stringify(ingredient),
@@ -56,7 +57,8 @@ const Ingredients = () => {
     })
     .then(response => response.json())
     .then(responseData => {
-      setIsLoading(false);
+      // setIsLoading(false);
+      dispatchHttp({ type: 'RESPONSE' });
       /* setUserIngredients(prevIngredients => [
         ...prevIngredients,
         { id: responseData.name, ...ingredient },
@@ -64,26 +66,30 @@ const Ingredients = () => {
       dispatch({ type: 'ADD', ingredient: { id: responseData.name, ...ingredient }});
     })
     .catch(error => {
-      setError('Something went wrong!');
+      // setError('Something went wrong!');
+      dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
     });
   };
 
   const removeIngredientHandler = ingredientId => {
-    setIsLoading(true);
+    // setIsLoading(true);
+    dispatchHttp({ type: 'SEND' });
     fetch(`https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`, {
       method: 'DELETE',
     }).then(response => {
-      setIsLoading(false);
+      // setIsLoading(false);
+      dispatchHttp({ type: 'RESPONSE' });
       // setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
       dispatch({ type: 'DELETE', id: ingredientId});
     }).catch(error => {
-      setError('Something went wrong!');
+      // setError('Something went wrong!');
+      dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
     });
   }
 
   const clearError = () => {
-    setError(null);
-    setIsLoading(false);
+    // setError(null);
+    // setIsLoading(false);
   };
 
   return (
