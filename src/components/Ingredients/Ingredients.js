@@ -20,15 +20,15 @@ const ingredientReducer = (currentIngredients, action) => {
 };
 const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const {isLoading, data, error, sendRequest} = useHttp();
+  const {isLoading, data, error, sendRequest, reqExtra} = useHttp();
   // const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null });
   // const [userIngredients, setUserIngredients] = useState([]);
   /* const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(); */
 
   useEffect(() => {
-    dispatch({ type: 'DELETE', /*id*/ });
-  }, [data]);
+    dispatch({ type: 'DELETE', id: reqExtra });
+  }, [data, reqExtra]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
     // setUserIngredients(filteredIngredients);
@@ -56,7 +56,11 @@ const Ingredients = () => {
   }, []);
 
   const removeIngredientHandler = useCallback(ingredientId => {
-    sendRequest(`https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`, 'DELETE');
+    sendRequest(
+      `https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`,
+      'DELETE',
+      null,
+      ingredientId);
   }, [sendRequest]);
 
   const clearError = useCallback(() => {
