@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useCallback } from 'react';
+import React, { useReducer, useEffect, useCallback } from 'react';
 
 import ErrorModal from '../UI/ErrorModal';
 import IngredientList from './IngredientList';
@@ -49,7 +49,7 @@ const Ingredients = () => {
     dispatch({ type: 'SET', ingredients: filteredIngredients });
   }, []);
 
-  const addIngredientsHandler = ingredient => {
+  const addIngredientsHandler = useCallback(ingredient => {
     // setIsLoading(true);
     dispatchHttp({ type: 'SEND' });
     fetch('https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json', {
@@ -71,7 +71,7 @@ const Ingredients = () => {
       // setError('Something went wrong!');
       dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
     });
-  };
+  }, []);
 
   const removeIngredientHandler = ingredientId => {
     // setIsLoading(true);
