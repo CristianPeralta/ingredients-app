@@ -3,9 +3,9 @@ import { useReducer, useCallback } from 'react';
 const httpReducer = (curHttpState, action) => {
     switch (action.type) {
       case 'SEND':
-        return { loading: true, error: null };
+        return { loading: true, error: null, data: null };
       case 'RESPONSE':
-        return { ...curHttpState, loading: false };
+        return { ...curHttpState, loading: false, data: action.responseData };
       case 'ERROR':
         return { loading: false, error: action.errorMessage };
       case 'CLEAR':
@@ -29,8 +29,11 @@ const useHttp = () => {
           body: body,
           headers: {
               'Content-Type': 'application/json',
-          }
-        }).then(response => {
+          },
+        })
+        .then(response => response.json())
+        .then(responseData => {
+            dispatchHttp({ type: 'RESPONSE', responseData: responseData });
         }).catch(error => {
         });
       }, []);
