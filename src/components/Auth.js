@@ -5,9 +5,9 @@ import { AuthContext } from '../context/auth-context';
 import './Auth.css';
 
 const Auth = props => {
-  // const authContext = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
   const loginHandler = () => {
-    // authContext.login();
+    authContext.login();
   };
 
   return (
