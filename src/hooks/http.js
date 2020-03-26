@@ -22,7 +22,7 @@ const useHttp = () => {
         data: null,
     });
 
-    const sendRequest = useCallback((url, method, body, error) => {
+    const sendRequest = useCallback((url, method, body) => {
         dispatchHttp({ type: 'SEND' });
         fetch(url, {
           method: method,
@@ -35,8 +35,16 @@ const useHttp = () => {
         .then(responseData => {
             dispatchHttp({ type: 'RESPONSE', responseData: responseData });
         }).catch(error => {
+            dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
         });
       }, []);
+
+      return {
+        isLoading: httpState.loading,
+        error: httpState.error,
+        data: httpState.data,
+        sendRequest: sendRequest,
+      };
 };
 
 export default useHttp;
