@@ -97,9 +97,8 @@ const Ingredients = () => {
 
   return (
     <div className="App">
-      {error && <ErrorModal onClose={clearError} >{error}</ErrorModal>}
-      <IngredientForm onAddIngredient={addIngredientsHandler} isLoading={isLoading} />
-
+      {httpState.error && <ErrorModal onClose={clearError} >{httpState.error}</ErrorModal>}
+      <IngredientForm onAddIngredient={addIngredientsHandler} isLoading={httpState.loading} />
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
         <IngredientList ingredients={userIngredients} onRemoveItem={removeIngredientHandler} />
