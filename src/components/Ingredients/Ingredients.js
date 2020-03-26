@@ -1,9 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useReducer, useEffect, useCallback } from 'react';
 
 import ErrorModal from '../UI/ErrorModal';
 import IngredientList from './IngredientList';
 import IngredientForm from './IngredientForm';
 import Search from './Search';
+
+const ingredientReducer = (currentIngredients, action) => {
+  switch (action.type) {
+    case 'SET':
+    case 'ADD':
+    case 'DELETE':
+    default:
+      break;
+  }
+};
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
