@@ -26,6 +26,8 @@ const httpReducer = (curHttpState, action) => {
       return { ...curHttpState, loading: false };
     case 'ERROR':
       return { loading: false, error: action.errorMessage };
+    case 'CLEAR':
+      return { ...curHttpState, error: null };
     default:
       throw new Error('Should not be reached!');
   }
@@ -90,6 +92,7 @@ const Ingredients = () => {
   const clearError = () => {
     // setError(null);
     // setIsLoading(false);
+    dispatchHttp({ type: 'CLEAR' });
   };
 
   return (
