@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useCallback, useMemo } from 'react';
 
+import useHttp from '../../hooks/http';
 import ErrorModal from '../UI/ErrorModal';
 import IngredientList from './IngredientList';
 import IngredientForm from './IngredientForm';
@@ -17,25 +18,10 @@ const ingredientReducer = (currentIngredients, action) => {
       throw new Error('Should not get there!');
   }
 };
-
-const httpReducer = (curHttpState, action) => {
-  switch (action.type) {
-    case 'SEND':
-      return { loading: true, error: null };
-    case 'RESPONSE':
-      return { ...curHttpState, loading: false };
-    case 'ERROR':
-      return { loading: false, error: action.errorMessage };
-    case 'CLEAR':
-      return { ...curHttpState, error: null };
-    default:
-      throw new Error('Should not be reached!');
-  }
-};
-
 const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null });
+  const {isLoading, data, error, sendRequest} = useHttp();
+  // const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null });
   // const [userIngredients, setUserIngredients] = useState([]);
   /* const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(); */
@@ -105,8 +91,8 @@ const Ingredients = () => {
 
   return (
     <div className="App">
-      {httpState.error && <ErrorModal onClose={clearError} >{httpState.error}</ErrorModal>}
-      <IngredientForm onAddIngredient={addIngredientsHandler} isLoading={httpState.loading} />
+      {error && <ErrorModal onClose={clearError} >{error}</ErrorModal>}
+      <IngredientForm onAddIngredient={addIngredientsHandler} isLoading={isLoading} />
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
         {ingredientList}
