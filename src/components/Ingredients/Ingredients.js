@@ -27,8 +27,8 @@ const Ingredients = () => {
   const [error, setError] = useState(); */
 
   useEffect(() => {
-    console.log('RENDERING INGREDIENTS', userIngredients);
-  }, [userIngredients]);
+    dispatch({ type: 'DELETE', /*id*/ });
+  }, [data]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
     // setUserIngredients(filteredIngredients);
