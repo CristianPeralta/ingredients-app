@@ -73,7 +73,7 @@ const Ingredients = () => {
     });
   }, []);
 
-  const removeIngredientHandler = ingredientId => {
+  const removeIngredientHandler = useCallback(ingredientId => {
     // setIsLoading(true);
     dispatchHttp({ type: 'SEND' });
     fetch(`https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`, {
@@ -87,7 +87,7 @@ const Ingredients = () => {
       // setError('Something went wrong!');
       dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
     });
-  }
+  }, []);
 
   const clearError = () => {
     // setError(null);
