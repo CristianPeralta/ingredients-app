@@ -29,6 +29,10 @@ const Ingredients = () => {
   useEffect(() => {
     if (reqExtra) {
       dispatch({ type: 'DELETE', id: reqExtra });
+    } else {
+      dispatch({
+        type: 'ADD',
+        ingredient: { id: data.name, ...reqExtra }});
     }
   }, [data, reqExtra]);
 
