@@ -49,24 +49,7 @@ const Ingredients = () => {
       ingredient,
       'ADD_INGREDIENT',
     );
-    // setIsLoading(true);
-    /* dispatchHttp({ type: 'SEND' });
-    fetch('https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json', {
-      method: 'POST',
-      body: JSON.stringify(ingredient),
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then(response => response.json())
-    .then(responseData => {
-      // setIsLoading(false);
-      dispatchHttp({ type: 'RESPONSE' });
-      dispatch({ type: 'ADD', ingredient: { id: responseData.name, ...ingredient }});
-    })
-    .catch(error => {
-      // setError('Something went wrong!');
-      dispatchHttp({ type: 'ERROR', errorMessage: 'Something went wrong!' });
-    }); */
-  }, []);
+  }, [sendRequest]);
 
   const removeIngredientHandler = useCallback(ingredientId => {
     sendRequest(
