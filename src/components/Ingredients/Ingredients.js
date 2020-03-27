@@ -27,14 +27,14 @@ const Ingredients = () => {
   const [error, setError] = useState(); */
 
   useEffect(() => {
-    if (reqIdentifier === 'REMOVE_INGREDIENT') {
+    if (!isLoading && !error && reqIdentifier === 'REMOVE_INGREDIENT') {
       dispatch({ type: 'DELETE', id: reqExtra });
-    } else if (reqIdentifier === 'ADD_INGREDIENT') {
+    } else if (!isLoading && !error && reqIdentifier === 'ADD_INGREDIENT') {
       dispatch({
         type: 'ADD',
         ingredient: { id: data.name, ...reqExtra }});
     }
-  }, [data, reqExtra, reqIdentifier]);
+  }, [data, reqExtra, reqIdentifier, isLoading, error]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
     // setUserIngredients(filteredIngredients);
