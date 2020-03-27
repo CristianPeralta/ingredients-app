@@ -51,6 +51,7 @@ const Search = React.memo(props => {
       <Card>
         <div className="search-input">
           <label>Filter by Title</label>
+          {isLoading && <span>Loading...</span>}
           <input
             ref={inputRef}
             type="text"
