@@ -30,6 +30,20 @@ const Search = React.memo(props => {
     };
   }, [enteredFilter, inputRef, sendRequest]);
 
+  useEffect(() => {
+    if (!isLoading && !error && data) {
+      const loadedIngredients = [];
+      for(const key in data) {
+        loadedIngredients.push({
+          id: key,
+          title: data[key].title,
+          amount: data[key].amount,
+        });
+      }
+      onLoadIngredients(loadedIngredients);
+    }
+  }, [data, error, isLoading, onLoadIngredients]);
+
   return (
     <section className="search">
       <Card>
