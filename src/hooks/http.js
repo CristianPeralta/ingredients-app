@@ -26,6 +26,8 @@ const httpReducer = (curHttpState, action) => {
 const useHttp = () => {
     const [httpState, dispatchHttp] = useReducer(httpReducer, initialState);
 
+    const clear = useCallback(() => dispatchHttp({ type: 'CLEAR' }), []);
+
     const sendRequest = useCallback((url, method, body, reqExtra, reqIdentifier) => {
         dispatchHttp({ type: 'SEND', identifier: reqIdentifier });
         fetch(url, {
@@ -50,6 +52,7 @@ const useHttp = () => {
         sendRequest: sendRequest,
         reqExtra: httpState.extra,
         reqIdentifier: httpState.identifier,
+        clear: clear,
       };
 };
 
