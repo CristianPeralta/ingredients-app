@@ -27,7 +27,9 @@ const Ingredients = () => {
   const [error, setError] = useState(); */
 
   useEffect(() => {
-    dispatch({ type: 'DELETE', id: reqExtra });
+    if (reqExtra) {
+      dispatch({ type: 'DELETE', id: reqExtra });
+    }
   }, [data, reqExtra]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
@@ -36,6 +38,11 @@ const Ingredients = () => {
   }, []);
 
   const addIngredientsHandler = useCallback(ingredient => {
+    sendRequest(
+      'https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json',
+      'POST',
+      JSON.stringify(ingredient)
+    );
     // setIsLoading(true);
     /* dispatchHttp({ type: 'SEND' });
     fetch('https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json', {
