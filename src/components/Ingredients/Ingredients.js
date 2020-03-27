@@ -20,21 +20,21 @@ const ingredientReducer = (currentIngredients, action) => {
 };
 const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const {isLoading, data, error, sendRequest, reqExtra} = useHttp();
+  const {isLoading, data, error, sendRequest, reqExtra, reqIdentifier} = useHttp();
   // const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null });
   // const [userIngredients, setUserIngredients] = useState([]);
   /* const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(); */
 
   useEffect(() => {
-    if (reqExtra) {
+    if (reqIdentifier === 'REMOVE_INGREDIENT') {
       dispatch({ type: 'DELETE', id: reqExtra });
-    } else {
+    } else if (reqIdentifier === 'ADD_INGREDIENT') {
       dispatch({
         type: 'ADD',
         ingredient: { id: data.name, ...reqExtra }});
     }
-  }, [data, reqExtra]);
+  }, [data, reqExtra, reqIdentifier]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
     // setUserIngredients(filteredIngredients);
@@ -45,7 +45,9 @@ const Ingredients = () => {
     sendRequest(
       'https://react-hooks-ingredients-3c991.firebaseio.com/ingredients.json',
       'POST',
-      JSON.stringify(ingredient)
+      JSON.stringify(ingredient),
+      ingredient,
+      'ADD_INGREDIENT',
     );
     // setIsLoading(true);
     /* dispatchHttp({ type: 'SEND' });
@@ -71,7 +73,9 @@ const Ingredients = () => {
       `https://react-hooks-ingredients-3c991.firebaseio.com/ingredients/${ingredientId}.json`,
       'DELETE',
       null,
-      ingredientId);
+      ingredientId,
+      'REMOVE_INGREDIENT',
+    );
   }, [sendRequest]);
 
   const clearError = useCallback(() => {
